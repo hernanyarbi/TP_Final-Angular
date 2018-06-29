@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="card">
+      <div class="card-header">Agregar alquiler</div>
+      <div class="card-body">
+        <form>
+          <div class="form-group form-inline">
+            <label for="selectProp">Propietario:</label>
+            <select id="selectProp" class="form-control" name="selectProp" [(ngModel)]="propID" required>
+              <option *ngFor="let prop of arrayPropietarios" [value]="prop.id">{{prop.dni}} | {{prop.apellido}}, {{prop.nombres}}</option>
+            </select>
+          </div>
+          <div class="form-group form-inline">
+            <label for="selectLoc">Local:</label>
+            <select id="selectLoc" class="form-control" name="selectLoc" [(ngModel)]="locID" (ngModelChange)="establecerPrecioCuota()" required>
+              <option *ngFor="let loc of arrayLocals" [value]="loc.id" [disabled]="loc.alquilado || !loc.habilitado">{{loc.id}}, {{loc.costomes}}</option>
+            </select>
+          </div>
+          <div class="form-group form-inline">
+            <label for="plazoMes">Días de alquiler:</label>
+            <input id="plazoMes" class="form-control" type="number" name="plazoMes" [(ngModel)]="newAlquiler.plazomes" required>
+          </div>
+          <div class="form-group form-inline">
+            <label for="precio">Precio:</label>
+            <label id="precio" class="form-control">{{newAlquiler.costoalquiler}}</label>
+          </div>
+          <div class="form-group form-inline">
+            <label for="fechaInput">Fecha:</label>
+            <input id="fechaInput" class="form-control" type="date" name="fechaInput" [(ngModel)]="newAlquiler.fechaAlquiler" required>
+          </div>
+          <button type="submit" class="btn btn-info" (click)="crearAlquiler()">Guardar</button>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Alquileres</div>
+      <div class="card-body">
+        <div class="form-control form-group form-inline">
+          <label>Fecha:</label>
+          <input type="date" class="form-control" [(ngModel)]="fechaBusq">
+          <input type="checkbox" class="form-control" [(ngModel)]="fechaBusqEnabled">
+          <button type="button" class="btn btn-info" (click)="actualizarMuestraAlquileres()">Buscar</button>
+        </div>
+        <table class="table table-responsive table-bordered" [mfData]="muestraAlquileres" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+            <th>
+              <mfDefaultSorter by="propietario.nombres">Propietario</mfDefaultSorter>
+            </th>    
+            <th> 
+              <mfDefaultSorter by="local.id">Local</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="plazomes">Plazo mes</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="costoalquiler">Costo de alquiler</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="fechaAlquiler">Fecha</mfDefaultSorter>
+            </th>
+            <th>
+              Opciones
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alq of mf.data">
+              <td>{{alq.propietario.nombres}}</td>
+              <td><img [src]="alq.local.pathimagen"/></td>
+              <td>{{alq.plazomes}}</td>
+              <td>${{alq.costoalquiler}}</td>
+              <td>{{ alq.fechaAlquiler.timestamp * 1001 |date: "MM/dd/yyyy" }}</td>            
+              <td><button type="button" class="btn btn-info" (click)="editarAlquiler(alq, modalEdit)">Modificar</button>
+                <button type="button" class="btn btn-warning" (click)="borrarAlquiler(alq)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+</div>
