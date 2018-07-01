@@ -1,28 +1,67 @@
+<div id="alertaPropietario">
+</div>
+
 <div class="container">
+  <h4>Propietarios</h4>
+  <hr>
   <div class="card">
+    <div class="card-header">
+      <button type="button" name="button" class="btn btn-primary" (click)="abrirModal(modalAdd)">Agregar</button>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+     <div class="card-header">
+        <table class="table"  [mfData]="arrayPropietarios" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+            <tr>
+              <th scope="col">DNI</th>
+              <th scope="col">apellido</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">E-Mail</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let prop of mf.data">
+              <td>{{prop.dni}}</td>
+              <td>{{prop.apellido}}</td>
+              <td>{{prop.nombres}}</td>
+              <td>{{prop.email}}</td>
+              <td>{{prop.telefono}}</td>
+              <td><button type="button" class="btn btn-success" (click)="editarPropietario(prop, modalEdit)">Modificar</button>
+                <button type="button" class="btn btn-danger" (click)="borrarPropietario(prop)">Eliminar</button>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+     </div>
+  </div>
+  <!--<div class="card">
     <div class="card-header">Agregar propietario</div>
     <div class="card-body">
       <form>
         <div class="form-group form-inline">
           <label >DNI</label>
-          <input id="dniInput" name="dniInput" type="number" class="form-control" [(ngModel)]="newPropietario.dni" required>    
+          <input id="dniInput" name="dniInput" type="number" class="form-control" [(ngModel)]="newPropietario.dni" required>
         </div>
         <div class="form-group form-inline">
           <label >Apellido</label>
-          <input id="apellidoInput" name="apellidoInput" type="text" class="form-control" [(ngModel)]="newPropietario.apellido" required>    
+          <input id="apellidoInput" name="apellidoInput" type="text" class="form-control" [(ngModel)]="newPropietario.apellido" required>
         </div>
         <div class="form-group form-inline">
           <label >Nombres</label>
-          <input id="nombreInput" name="nombreInput" type="text" class="form-control" [(ngModel)]="newPropietario.nombres" required>    
+          <input id="nombreInput" name="nombreInput" type="text" class="form-control" [(ngModel)]="newPropietario.nombres" required>
         </div>
         <div class="form-group form-inline">
           <label >E-Mail</label>
-          <input id="emailInput" name="emailInput" type="email" class="form-control" [(ngModel)]="newPropietario.email" required>    
-        </div>  
+          <input id="emailInput" name="emailInput" type="email" class="form-control" [(ngModel)]="newPropietario.email" required>
+        </div>
         <div class="form-group form-inline">
           <label>Teléfono</label>
-          <input id="tlfInput" name="tlfInput"type="number" class="form-control" [(ngModel)]="newPropietario.telefono" required>    
-        </div>  
+          <input id="tlfInput" name="tlfInput"type="number" class="form-control" [(ngModel)]="newPropietario.telefono" required>
+        </div>
         <button type="submit" (click)="crearPropietario()" class="btn btn-info">Guardar</button>
       </form>
     </div>
@@ -35,7 +74,7 @@
         <thead>
           <th>
             <mfDefaultSorter by="dni">DNI</mfDefaultSorter>
-          </th>    
+          </th>
           <th>
             <mfDefaultSorter by="apellido">apellidos</mfDefaultSorter>
           </th>
@@ -58,7 +97,7 @@
             <td>{{prop.apellido}}</td>
             <td>{{prop.nombres}}</td>
             <td>{{prop.email}}</td>
-            <td>{{prop.telefono}}</td>            
+            <td>{{prop.telefono}}</td>
             <td><button type="button" class="btn btn-info" (click)="editarPropietario(prop, modalEdit)">Modificar</button>
               <button type="button" class="btn btn-info" (click)="borrarPropietario(prop)">Eliminar</button>
             </td>
@@ -73,34 +112,63 @@
         </tfoot>
       </table>
     </div>
-  </div>
+  </div>-->
 </div>
+<ng-template #modalAdd let-clo="close">
+   <div class="modal-header"><h5>Agregar Propietario</h5><button class="close" type="close" (click)="clo('')">X</button></div>
+   <div class="modal-body">
+     <form>
+       <div class="form-group">
+         <label >DNI:</label>
+         <input id="dniInput" name="dniInput" type="number" class="form-control" [(ngModel)]="newPropietario.dni" required>
+       </div>
+       <div class="form-group">
+         <label >Apellido:</label>
+         <input id="apellidoInput" name="apellidoInput" type="text" class="form-control" [(ngModel)]="newPropietario.apellido" required>
+       </div>
+       <div class="form-group">
+         <label >Nombres:</label>
+         <input id="nombreInput" name="nombreInput" type="text" class="form-control" [(ngModel)]="newPropietario.nombres" required>
+       </div>
+       <div class="form-group">
+         <label >E-Mail:</label>
+         <input id="emailInput" name="emailInput" type="email" class="form-control" [(ngModel)]="newPropietario.email" required>
+       </div>
+       <div class="form-group">
+         <label>Teléfono:</label>
+         <input id="tlfInput" name="tlfInput"type="number" class="form-control" [(ngModel)]="newPropietario.telefono" required>
+       </div>
+       <button type="submit" (click)="crearPropietario()" class="btn btn-info">Guardar</button>
+     </form>
+   </div>
+</ng-template>
+
 <ng-template #modalEdit let-c="close">
-  <div class="modal-header">Editando {{editandoProp.apellido }}{{ editandoProp.nombres }}<button class="close" type="close" (click)="c('')">X</button></div>
+  <div class="modal-header"><h5>Editando {{editandoProp.apellido }} {{ editandoProp.nombres }}</h5><button class="close" type="close" (click)="c('')">X</button></div>
   <div class="modal-body">
     <form id="formEdit" name="formEdit">
-      <div class="form-group form-inline">
-        <label for="dniEdit">DNI</label>
-        <input id="dniEdit" name="dniEdit" type="number" class="form-control" [(ngModel)]="editandoProp.dni" required>    
+      <div class="form-group">
+        <label for="dniEdit">DNI:</label>
+        <input id="dniEdit" name="dniEdit" type="number" class="form-control" [(ngModel)]="editandoProp.dni" required>
       </div>
-      <div class="form-group form-inline">
-        <label for="apellidoEdit">Apellido</label>
-        <input id="apellidoEdit" name="apellidoEdit" type="text" class="form-control" [(ngModel)]="editandoProp.apellido" required>    
+      <div class="form-group">
+        <label for="apellidoEdit">Apellido:</label>
+        <input id="apellidoEdit" name="apellidoEdit" type="text" class="form-control" [(ngModel)]="editandoProp.apellido" required>
       </div>
-      <div class="form-group form-inline">
-        <label for="nombreEdit">Nombres</label>
-        <input id="nombreEdit" name="nombreEdit" type="text" class="form-control" [(ngModel)]="editandoProp.nombres" required>    
+      <div class="form-group">
+        <label for="nombreEdit">Nombres:</label>
+        <input id="nombreEdit" name="nombreEdit" type="text" class="form-control" [(ngModel)]="editandoProp.nombres" required>
       </div>
-      <div class="form-group form-inline">
-        <label for="emailEdit">E-Mail</label>
-        <input id="emailEdit" name="emailEdit" type="email" class="form-control" [(ngModel)]="editandoProp.email" required>    
-      </div>  
-      <div class="form-group form-inline">
-        <label>Teléfono</label>
-        <input id="tlfEdit" name="tlfEdit" type="number" class="form-control" [(ngModel)]="editandoProp.telefono" required>    
-      </div>  
-      <button type="submit" (click)="actualizarPropietario()" class="btn btn-info">Guardar</button>
+      <div class="form-group">
+        <label for="emailEdit">E-Mail:</label>
+        <input id="emailEdit" name="emailEdit" type="email" class="form-control" [(ngModel)]="editandoProp.email" required>
+      </div>
+      <div class="form-group">
+        <label>Teléfono:</label>
+        <input id="tlfEdit" name="tlfEdit" type="number" class="form-control" [(ngModel)]="editandoProp.telefono" required>
+      </div>
+      <button type="submit" (click)="actualizarPropietario()" (click)="c('')" class="btn btn-info">Guardar</button>
     </form>
   </div>
-  
+
 </ng-template>

@@ -1,35 +1,35 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">   
-    <a class="navbar-brand">Proyecto Final</a>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">GALERIAS PANDA</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-      <span class="navbar-toggler-icon"></span>    
-    </button>    
-    <div class="navbar-collapse collapse" id="collapsingNavbar">        
-      <ul class="navbar-nav mr-auto">     
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="collapsingNavbar">
+      <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item" routerLinkActive="active" *ngIf="!authenticationService.userLoggedIn">                
-          <a class="nav-link" href="#" [routerLink]="['login']">Login</a>            
-        </li>            
-        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">                
-            <a class="nav-link" href="#" [routerLink]="['home']">Home</a>            
-        </li>            
-        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">                
-          <a class="nav-link" href="#" [routerLink]="['propietarios']">Propietarios</a>            
-        </li>            
-        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">                
-          <a class="nav-link" href="#" [routerLink]="['locales']">Locales</a>            
-        </li>            
-        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">                
-          <a class="nav-link" href="#" [routerLink]="['alquileres']">Alquiler</a>            
-        </li>                             
-      </ul>     
-      <ul class="navbar-nav ml-auto" *ngIf="authenticationService.userLoggedIn"> 
+        <li class="nav-item" routerLinkActive="active" *ngIf="!authenticationService.userLoggedIn">
+          <a class="nav-link" href="#" [routerLink]="['login']">LOGIN</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">
+            <a class="nav-link" href="#" [routerLink]="['home']">HOME</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">
+          <a class="nav-link" href="#" [routerLink]="['propietarios']">PROPIETARIOS</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">
+          <a class="nav-link" href="#" [routerLink]="['locales']">LOCALES</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="authenticationService.userLoggedIn">
+          <a class="nav-link" href="#" [routerLink]="['alquileres']">ALQUILERES</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto" *ngIf="authenticationService.userLoggedIn">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdownLogueado" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{authenticationService.nombreLogueado}}</a>
           <div class="dropdown-menu" aria-labelledby="dropdownLogueado">
-            <a class="dropdown-item" (click)="logout()">Desconectar</a>
+            <a class="dropdown-item" (click)="logout()">Cerrar session</a>
           </div>
-        </li>           
+        </li>
       </ul>
     </div>
   </nav>

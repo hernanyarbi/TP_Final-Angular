@@ -1,1 +1,35 @@
-<h1 class="bg-success">Bienvenido</h1>
+<div>
+  <img [src]="'./assets/img/admin-image.jpg'" class="img-fluid" alt="Responsive image">
+</div>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-4">
+      <div class="card text-center text-white bg-danger" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">PROPIETARIOS</h5>
+          <!--<img class="card-img-top" [src]="'./assets/img/prop-icono.png'" alt="Card image cap">-->
+          <p class="card-text">Administre los propietarios y registre la informacion mas relevante.</p>
+          <a href="#" class="btn btn-danger" routerLink="/propietarios">ADMINISTRAR</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center text-white bg-success" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">LOCALES</h5>
+          <p class="card-text">Administre todos los locales comerciales y sus principales detalles.</p>
+          <a href="#" class="btn btn-success" routerLink="/locales" >ADMINISTRAR</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center text-white bg-secondary" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">ALQUILERES</h5>
+          <p class="card-text">Administre los alquileres, su diponibilidad y todos los movimientos.</p>
+          <a href="#" class="btn btn-secondary text-white" routerLink="/alquileres" >ADMINISTRAR</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
