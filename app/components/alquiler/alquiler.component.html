@@ -1,65 +1,71 @@
 <div class="container">
-    <div class="card">
-      <div class="card-header">Agregar alquiler</div>
-      <div class="card-body">
-        <form>
-          <div class="form-group form-inline">
-            <label for="selectProp">Propietario:</label>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-md-12 col-sm-12"  > 
+      
+        <form id="formm">
+            <div class="header" >
+                <h3>Agregar Alquiler</h3>
+               </div>
+              <div class="sep"></div>
+          <div class="form-group row">
+            <label for="selectProp" class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Propietario:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
             <select id="selectProp" class="form-control" name="selectProp" [(ngModel)]="propID" required>
               <option *ngFor="let prop of arrayPropietarios" [value]="prop.id">{{prop.dni}} | {{prop.apellido}}, {{prop.nombres}}</option>
             </select>
+            </div>
           </div>
-          <div class="form-group form-inline">
-            <label for="selectLoc">Local:</label>
+          <div class="form-group row">
+            <label for="selectLoc" class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Local:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
             <select id="selectLoc" class="form-control" name="selectLoc" [(ngModel)]="locID" (ngModelChange)="establecerPrecioCuota()" required>
               <option *ngFor="let loc of arrayLocals" [value]="loc.id" [disabled]="loc.alquilado || !loc.habilitado">{{loc.id}}, {{loc.costomes}}</option>
             </select>
+            </div>
           </div>
-          <div class="form-group form-inline">
-            <label for="plazoMes">Días de alquiler:</label>
+          <div class="form-group row">
+            <label for="plazoMes" class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Días de alquiler:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
             <input id="plazoMes" class="form-control" type="number" name="plazoMes" [(ngModel)]="newAlquiler.plazomes" required>
+            </div>
           </div>
-          <div class="form-group form-inline">
-            <label for="precio">Precio:</label>
-            <label id="precio" class="form-control">{{newAlquiler.costoalquiler}}</label>
+          <div class="form-group row">
+            <label for="precio" class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Precio:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
+            <label style="margin-top: 15px" id="precio" class="form-control ">{{newAlquiler.costoalquiler}}</label>
+            </div>
           </div>
-          <div class="form-group form-inline">
-            <label for="fechaInput">Fecha:</label>
+          <div class="form-group row">
+            <label for="fechaInput" class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Fecha:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
             <input id="fechaInput" class="form-control" type="date" name="fechaInput" [(ngModel)]="newAlquiler.fechaAlquiler" required>
+            </div>
           </div>
           <button type="submit" class="btn btn-info" (click)="crearAlquiler()">Guardar</button>
         </form>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Alquileres</div>
-      <div class="card-body">
-        <div class="form-control form-group form-inline">
-          <label>Fecha:</label>
-          <input type="date" class="form-control" [(ngModel)]="fechaBusq">
-          <input type="checkbox" class="form-control" [(ngModel)]="fechaBusqEnabled">
-          <button type="button" class="btn btn-info" (click)="actualizarMuestraAlquileres()">Buscar</button>
-        </div>
+   </div> 
+    
+        
         <table class="table table-responsive table-bordered" [mfData]="muestraAlquileres" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <h3 style="text-align: center">Tabla</h3>
+            <div class="sep"></div>
+            <div id="busca" class="form-control form-group form-inline">
+                <label>Fecha:</label>
+                <input type="date" class="form-control" [(ngModel)]="fechaBusq">
+                <input style="margin-left: 5px" type="checkbox" class="form-control" [(ngModel)]="fechaBusqEnabled">
+                <button style="margin-left: 5px" type="button" class="btn btn-info" (click)="actualizarMuestraAlquileres()">Buscar</button>
+              </div>
           <thead>
-            <th>
-              <mfDefaultSorter by="propietario.nombres">Propietario</mfDefaultSorter>
-            </th>    
-            <th> 
-              <mfDefaultSorter by="local.id">Local</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="plazomes">Plazo mes</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="costoalquiler">Costo de alquiler</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="fechaAlquiler">Fecha</mfDefaultSorter>
-            </th>
-            <th>
-              Opciones
-            </th>
+              
+              <tr>
+                <th style="width: 10%"> <mfDefaultSorter by="propietario.nombres">Propietario</mfDefaultSorter> </th>
+                <th style="width: 17%"> <mfDefaultSorter by="local.id">Local</mfDefaultSorter> </th>
+                <th style="width: 17%"> <mfDefaultSorter by="plazomes">Plazo mes</mfDefaultSorter> </th>
+                <th style="width: 17%"> <mfDefaultSorter by="costoalquiler">Costo de alquiler</mfDefaultSorter> </th>
+                <th style="width: 19%"> <mfDefaultSorter by="fechaAlquiler">Fecha</mfDefaultSorter> </th>
+                <th style="width: 30%"> <mfDefaultSorter by="acciones"></mfDefaultSorter> </th>
+             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let alq of mf.data">
@@ -81,6 +87,5 @@
             </tr>
           </tfoot>
         </table>
-      </div>
-    </div>
+     
 </div>

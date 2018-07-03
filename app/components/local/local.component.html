@@ -1,56 +1,64 @@
 <div class="container">
-    <div class="card">
-      <div class="card-header">Agregar local</div>
-      <div class="card-body">
-        <form>
-          <div class="form-group form-inline">
-            <label >Superficie</label>
-            <input id="superficieInput" name="superficieInput" type="number" class="form-control" [(ngModel)]="newLocal.superficie" required>    
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-md-7 col-sm-12"  >
+    <!--<div class="card ">-->
+     <!-- <div class="card-header">Agregar local</div>
+      <div class="card-body">-->
+        <form id="formm">
+            <div class="header" >
+                <h3>Agregar local</h3>
+               </div>
+              <div class="sep"></div>
+          <div class="form-group row">
+            <label class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Superficie:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
+            <input id="superficieInput" name="superficieInput" type="number" class="form-control"  [(ngModel)]="newLocal.superficie" required>    
+            </div>
           </div>
-          <div class="form-group form-inline">
-            <label >Habilitado</label>
+         
+          
+          <div class="form-group  row" id="rad">
+            <label class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label"  >Habilitado:</label>
             <input id="habilitadoInput" name="habilitadoInput" type="checkbox" class="form-control" [(ngModel)]="newLocal.habilitado" required>    
-          </div>
-          <div class="form-group form-inline">
-            <label >Costo mes</label>
+         </div>
+          
+        
+          <div class="form-group row">
+            <label class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">Costo mes:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
             <input id="costomesInput" name="costomesInput" type="number" class="form-control" [(ngModel)]="newLocal.costomes" required>    
+            </div>
           </div>
-          <div class="form-group form-inline">
-            <label >URL IMG</label>
+          <div class="form-group row">
+            <label class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label">URL IMG:</label>
+            <div class="col-lg-9 col-md-8 col-sm-9 col-7">
             <input id="pathimagenInput" name="pathimagenInput" type="text" class="form-control" [(ngModel)]="newLocal.pathimagen" required>    
+            </div>
           </div>  
-          <div class="form-group form-inline">
-            <label>Alquilado</label>
+          <div class="form-group row">
+            <label class="col-lg-3 col-md-4 col-sm-3 col-5 col-form-label" >Alquilado:</label>
             <input id="alqInput" name="alqInput"type="checkbox" class="form-control" [(ngModel)]="newLocal.alquilado" required>    
           </div>  
           <button type="submit" (click)="crearLocal()" class="btn btn-info">Guardar</button>
         </form>
-      </div>
+      <!--</div>-->
+    <!--</div>-->
+    </div>
     </div>
   
-    <div class="card">
-      <div class="card-header">Locales</div>
-      <div class="card-body">
+    
         <table class="table table-responsive table-bordered" [mfData]="arrayLocals" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <h3 style="text-align: center">Tabla</h3>
           <thead>
-            <th>
-              <mfDefaultSorter by="superficie">Superficie</mfDefaultSorter>
-            </th>    
-            <th> 
-              <mfDefaultSorter by="habilitado">Habilitado</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="costomes">Costo mes</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="pathimagen">Imagen</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="alquilado">Alquilado</mfDefaultSorter>
-            </th>
-            <th>
-              Opciones
-            </th>
+            <tr>
+                <th style="width: 10%"> <mfDefaultSorter by="superficie">Superficie</mfDefaultSorter> </th>
+                <th style="width: 10%"> <mfDefaultSorter by="habilitado">Habilitado</mfDefaultSorter> </th>
+                <th style="width: 10%"> <mfDefaultSorter by="costo">Costo mes</mfDefaultSorter> </th>
+                <th style="width: 10%"> <mfDefaultSorter by="alquilado">Alquilado</mfDefaultSorter> </th>
+                <th style="width: 30%"> <mfDefaultSorter by="imagen">Imagen</mfDefaultSorter> </th>
+                <th style="width: 30%"> <mfDefaultSorter by="acciones"></mfDefaultSorter> </th>
+               
+              </tr>
           </thead>
           <tbody>
             <tr *ngFor="let loc of mf.data">
@@ -72,16 +80,14 @@
             </tr>
           </tfoot>
         </table>
-      </div>
-    </div>
-  </div>
+    
   <ng-template #modalEdit let-c="close">
     <div class="modal-header">Editando Local: {{editandoLoc.id }}<button class="close" type="close" (click)="c('')">X</button></div>
     <div class="modal-body">
       <form id="formEdit" name="formEdit">
         <div class="form-group form-inline">
           <label for="superficieEdit">Superficie</label>
-          <input id="superficieEdit" name="superficieEdit" type="number" class="form-control" [(ngModel)]="editandoLoc.superficie" required>    
+          <input id="superficieEdit" name="superficieEdit" type="number"  [(ngModel)]="editandoLoc.superficie" required>    
         </div>
         <div class="form-group form-inline">
           <label for="habilitadoEdit">Habilitado</label>

@@ -1,0 +1,56 @@
+
+#col-lg-10{
+    padding-right: 30px;
+}
+#habilitadoInput{
+    margin-top: 10px;
+    width: 50px;
+}
+#alqInput{
+    margin-top: 10px;
+    width: 50px;
+}
+#formm {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background:rgb(19, 35, 47,.9);
+    padding: 30px;
+    border-radius:4px;
+    box-shadow:0 4px 10px 4px rgba(19, 35, 47,.5);
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+    font-size:15px;
+}
+input{
+    
+    padding:5px 10px;
+    background:none;
+    background-image:none;
+    border:1px solid #a0b3b0;
+    transition:border-color .25s ease, box-shadow .25s ease;
+}
+input:focus{
+    background:#1E405A;
+    color: white;
+} 
+
+button{
+    background:#1ab188;
+}
+
+.sep {
+    height: 2px;
+    background:#1E405A; 
+    margin: 0px -25px 10px;
+}  
+.header {
+    margin-bottom: 20px;
+}
+.table{
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+    font-size:15px;
+    background:rgb(19, 35, 47,.9);
+    border-radius:4px;
+    
+}
