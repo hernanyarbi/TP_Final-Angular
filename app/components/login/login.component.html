@@ -1,22 +1,33 @@
-<div class="container" *ngIf="usuarioLogueado == null">
-    <div class="card">
-      <div class="card-header bg-primary">Login</div>
-      <div class="card-body">
-        <form name="formLogin">
-          <img class="form-control" [src]="'./assets/img/login.png'">
-          <div id="alertaUsuario">
-          </div>    
-          <div class="form-group">
-            <label for="nombreDeUsuario">Usuario</label>
-            <input type="text" class="form-control" name="nombreDeUsuario" id="nombreDeUsuario" [(ngModel)]="loginForm.username" required>
+<div class="container">
+  <!--*ngIf="usuarioLogueado == null"-->
+    <div class="row">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4">
+        <div class="card mt-3">
+          <div class="card-header bg-dark"><h5>LOGIN</h5></div>
+          <div class="card-body">
+            <form name="formLogin">
+              <img class="form-control img-fluid img-thumbnail" [src]="'./assets/img/login1.png'">
+              <div class="form-group">
+                <div *ngIf="mensajeUno" class='alert alert-danger'>Credenciales invalidos.</div>
+                <div *ngIf="mensajeDos" class='alert alert-danger'>El usuario ingresado ya está conectado.</div>
+                <label for="nombreDeUsuario">Usuario</label>
+                <input type="text" class="form-control" name="nombreDeUsuario" id="nombreDeUsuario" [(ngModel)]="loginForm.username" required>
+              </div>
+              <div class="form-group">
+                  <label for="contrasena">Contraseña</label>
+                  <input type="password" class="form-control" name="contrasena" id="contrasena" [(ngModel)]="loginForm.password" required>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-success" (click)="login()">Iniciar sesión</button>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-              <label for="contrasena">Contraseña</label>
-              <input type="password" class="form-control" name="contrasena" id="contrasena" [(ngModel)]="loginForm.password" required>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-success" (click)="login()">Iniciar sesión</button>
-          </div>
-        </form>
+        </div>
+      </div>
+      <div class="col-md-4">
+
     </div>
 </div>

@@ -36,6 +36,7 @@ export class PropietarioComponent implements OnInit {
     }
     this.newPropietario = new Propietario();
     this.cargarPropietarios();
+
   }
 
 
@@ -90,6 +91,7 @@ export class PropietarioComponent implements OnInit {
       this.servicio.eliminarPropietario(propietario).subscribe(
       result => {
         this.cargarPropietarios();
+
         $('#alertaPropietario').html("<div class='alert alert-success'><strong>Propietario Eliminado!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
       },
       error => {
@@ -100,6 +102,7 @@ export class PropietarioComponent implements OnInit {
 
 
   ngOnInit() {
+
   }
 
 }

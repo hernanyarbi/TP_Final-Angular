@@ -11,7 +11,8 @@ declare var $ :any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  mensajeUno = false;
+  mensajeDos = false;
   loginForm: any = {};
   usuarioLogueado = {};
   returnUrl: string;
@@ -19,16 +20,16 @@ export class LoginComponent implements OnInit {
     this.usuarioLogueado = localStorage.getItem("usuarioLogueado");
     console.log(this.usuarioLogueado);
 
+
   }
 
-  
+
   login()
   {
     this.authenticationService.login(this.loginForm.username, this.loginForm.password).subscribe(
-      data => 
+      data =>
       {
         let user = data;
-        console.log(user);
         if(user)
         {
           if(user.username != "" && user.activo == false){
@@ -42,11 +43,17 @@ export class LoginComponent implements OnInit {
           }
           else if(user.activo == true)
           {
-            $('#alertaUsuario').html("<div class='alert alert-danger'>El usuario ingresado ya está conectado.</div>");            
+             this.mensajeDos = true;
+             setTimeout(() => {
+               this.mensajeDos = false;
+             }, 3000)
           }
           else
           {
-            $('#alertaUsuario').html("<div class='alert alert-danger'>Credenciales inválidas.</div>");
+            this.mensajeUno = true;
+            setTimeout(() => {
+              this.mensajeUno = false;
+            }, 3000)
           }
         }
       },
@@ -57,7 +64,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';    
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
 }

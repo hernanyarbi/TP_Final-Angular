@@ -6,6 +6,7 @@ import { AlquilerService } from '../../services/alquiler-service';
 import { Propietario } from '../../models/propietario';
 import { Local } from '../../models/local';
 import { Alquiler } from '../../models/alquiler';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-alquiler',
@@ -22,10 +23,11 @@ export class AlquilerComponent implements OnInit {
   fechaBusqEnabled:boolean=false;
   muestraAlquileres:Array<Alquiler>;
   newAlquiler:Alquiler;
+  editAlquiler:Alquiler;
   propID:number;
   locID:number;
 
-  constructor(private propService:PropietarioService, private localService:LocalService, private alqService:AlquilerService, private router:Router) {
+  constructor(private propService:PropietarioService, private localService:LocalService, private alqService:AlquilerService, private router:Router,private modalService: NgbModal) {
     this.newAlquiler = new Alquiler();
     this.usuarioLogueado = localStorage.getItem("usuarioLogueado");
     if(localStorage.getItem("usuarioLogueado") == null)
@@ -37,13 +39,10 @@ export class AlquilerComponent implements OnInit {
     this.cargarAlquileres();
   }
 
-  actualizarMuestraAlquileres()
-  {
+  actualizarMuestraAlquileres(){
     this.muestraAlquileres = new Array();
-    if(this.fechaBusqEnabled)
-    {
-      for(let alq of this.arrayAlquileres)
-      {
+    if(this.fechaBusqEnabled){
+      for(let alq of this.arrayAlquileres){
         if(alq.fechaAlquiler.getTime == this.fechaBusq.getTime) this.muestraAlquileres.push(alq);
       }
     }
@@ -51,24 +50,26 @@ export class AlquilerComponent implements OnInit {
       this.muestraAlquileres = this.arrayAlquileres;
     }
   }
-  cargarPropietarios()
-  {
+
+
+  cargarPropietarios(){
     this.propService.getPropietarios().subscribe(
-      result=>
-      {
+      result=>{
         this.arrayPropietarios = JSON.parse(result.propietarios);
       },
-      error =>
-      {
+      error =>{
         console.error(error);
       }
     );
   }
-  cargarLocals()
-  {
+
+  abrirModal(modal){
+    this.modalService.open(modal);
+  }
+
+  cargarLocals(){
     this.localService.getLocals().subscribe(
-      result=>
-      {
+      result=>{
         this.arrayLocals = JSON.parse(result.locals);
       },
       error =>
@@ -77,52 +78,49 @@ export class AlquilerComponent implements OnInit {
       }
     );
   }
-  cargarAlquileres()
-  {
+
+
+  cargarAlquileres(){
     this.alqService.getAlquilers().subscribe(
-      result=>
-      {
+      result=>{
         this.arrayAlquileres = JSON.parse(result.alquileres);
         this.actualizarMuestraAlquileres();
       },
-      error =>
-      {
+      error =>{
         console.error(error);
       }
     );
   }
-  borrarAlquiler(alq:Alquiler)
-  {
+
+
+  borrarAlquiler(alq:Alquiler){
     alq.local.alquilado = false;
     this.actualizarLocal(alq.local);
     this.alqService.eliminarAlquiler(alq).subscribe(
-      result=>
-      {
+      result=>{
         this.cargarAlquileres();
       },
-      error =>
-      {
+      error =>{
         console.error(error);
       }
     )
   }
-  actualizarLocal(loc:Local)
-  {
+
+
+  actualizarLocal(loc:Local){
     this.localService.updateLocal(loc).subscribe(
       data=> {
         this.cargarLocals();
       },
-      error =>
-      {
+      error =>{
         console.error(error);
       }
     );
   }
-  crearAlquiler()
-  {
+
+  crearAlquiler(){
     let s:Local;
-    for(s of this.arrayLocals)
-    {
+    for(s of this.arrayLocals){
       if(s.id == this.locID){
         break;
       }
@@ -130,8 +128,7 @@ export class AlquilerComponent implements OnInit {
     s.alquilado = true;
     this.actualizarLocal(s);
     let prop:Propietario;
-    for(prop of this.arrayPropietarios)
-    {
+    for(prop of this.arrayPropietarios){
       if(prop.id == this.propID){
         break;
       }
@@ -139,24 +136,22 @@ export class AlquilerComponent implements OnInit {
 
     this.newAlquiler.local = s;
     this.newAlquiler.propietario = prop;
-    
+
     this.alqService.createAlquiler(this.newAlquiler).subscribe(
-      result =>
-      {
+      result =>{
         this.cargarAlquileres();
         this.newAlquiler = new Alquiler();
       },
-      error =>
-      {
+      error =>{
         console.error(error);
       }
     );
   }
-  establecerPrecioCuota()
-  {
+
+
+  establecerPrecioCuota(){
     let s:Local;
-    for(s of this.arrayLocals)
-    {
+    for(s of this.arrayLocals){
       if(s.id == this.locID){
         this.newAlquiler.costoalquiler = s.costomes;
         return 1;

@@ -9,9 +9,8 @@ import { LoginComponent } from '../login/login.component';
 })
 export class HeaderComponent implements OnInit {
   usuarioLogueado = {};
-  constructor(public authenticationService:AuthenticationService, private router: Router) { 
+  constructor(public authenticationService:AuthenticationService, private router: Router) {
     this.usuarioLogueado = localStorage.getItem("usuarioLogueado");
-
   }
 
 
@@ -23,7 +22,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('');
   }
 
-  ngOnInit() {
+  ngOnInit(){
   }
 
 }
